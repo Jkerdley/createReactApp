@@ -1,22 +1,30 @@
-// declarative style
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-// declarative + imperative style
+
+const elements = [
+	{ type: 'img', props: { src: logo, className: 'App-logo', alt: 'logo' } },
+	{ type: 'p', props: { children: 'Редактируйте ' } },
+	{ type: 'code', props: { children: 'src/App.js' } },
+	{ type: 'p', props: { children: ' и сохраните, чтобы перезапустить новое приложение' } },
+	{
+		type: 'a',
+		props: {
+			className: 'App-link',
+			href: 'https://reactjs.org',
+			target: '_blank',
+			rel: 'noopener noreferrer',
+			children: 'Узнайте о React',
+		},
+	},
+	{ type: 'p', props: { children: `Текущий год: ${new Date().getFullYear()}` } },
+];
+
 export const App = () => {
-	// declarative style
-	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.js</code> and save to reload new app
-				</p>
-				<a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-					Learn React
-				</a>
-				{/* imperative style */}
-				<p> Текущий год: {new Date().getFullYear()}</p>
-			</header>
-		</div>
+	const header = React.createElement(
+		'header',
+		{ className: 'App-header' },
+		elements.map((element) => React.createElement(element.type, element.props)),
 	);
+	return React.createElement('div', { className: 'App' }, header);
 };
